@@ -1,4 +1,4 @@
-@regresssion @checkinsfeature
+@regression @checkinsfeature
 
   Feature: Check Ins Features
 

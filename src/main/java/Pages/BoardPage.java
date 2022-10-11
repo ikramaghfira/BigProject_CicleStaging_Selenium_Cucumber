@@ -100,6 +100,8 @@ public class BoardPage extends WebElementUtils {
     private WebElement closeArchivedItems;
     @FindBy(xpath = "//div[@class='CreateLabel_CreateLabelContainer__body__1tydf']//div[5]")
     private WebElement labelColor;
+    @FindBy(xpath = "//div[normalize-space()='test']/following-sibling::div/button")
+    private WebElement testListRestoreBtn;
     /**
      * INPUT BUTTONS
      */
@@ -156,6 +158,9 @@ public class BoardPage extends WebElementUtils {
     private WebElement firstCreatedLabel;
     @FindBy(xpath = "//div[@class='modal-title h4']//*[name()='svg']")
     private WebElement privateIconOnLayer;
+    @FindBy(xpath = "(//div[@class='ArchivedItemsLists_listName__3Wb-n'])[1]")
+    private WebElement firstArchivedList;
+
 
     Actions action = new Actions(driver);
 
@@ -246,6 +251,7 @@ public class BoardPage extends WebElementUtils {
         return this;
     }
     public BoardPage verifyCardTitleIsUpdated(String title) throws InterruptedException {
+        waitToBeClickable(cardTitleOnLayer);
         Assert.assertTrue(cardTitleOnLayer.getText().contains(title));
         Thread.sleep(2000);
         clickElement(closeCardContainerBtn);
@@ -297,20 +303,26 @@ public class BoardPage extends WebElementUtils {
         }
         return this;
     }
-    public BoardPage clickArchivedItem(String text){
+    public BoardPage clickArchivedItem(String text) throws InterruptedException {
         clickElement(archivedItemMenu);
         if(text.equals("Switch to List")){
             clickElement(switchBtn);
         }
+        Thread.sleep(2000);
         return this;
     }
     public BoardPage closeArchivedItemsMenu(){
         clickElement(closeArchivedItems);
         return this;
     }
-    public BoardPage clickRestoreButton() throws InterruptedException {
-        Thread.sleep(1000);
-        clickElement(firstRestoreButton);
+    public BoardPage clickRestoreButton(String text) throws InterruptedException {
+        Thread.sleep(2000);
+        if(text.equals("test")){
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].scrollIntoView(true);", testListRestoreBtn);
+            Thread.sleep(2000);
+            clickElement(testListRestoreBtn);
+        } else{clickElement(firstRestoreButton);}
         return this;
     }
     public BoardPage searchItemToBeRestored(String item){
@@ -349,20 +361,12 @@ public class BoardPage extends WebElementUtils {
         }
         return this;
     }
-    public BoardPage updateListTitle(String oldTitle, String newTitle){
-        List<WebElement> listList =
-                wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy
-                        (By.className("ListContainer_headerSection__title__text__36H_r")));
-        for (int i=0; i<listList.size();i++){
-            String titleLists = listList.get(i).getText().trim();
-            if(titleLists.equals(oldTitle)){
-                WebElement desiredElement = listList.get(i);
-                desiredElement.click();
-                updateListTitleForm.clear();
-                updateListTitleForm.sendKeys(newTitle);
-                updateListTitleForm.sendKeys(Keys.ENTER);
-            }
-        }
+    public BoardPage updateListTitle(String newTitle){
+        waitVisibilityElement(latestCreatedList);
+        clickElement(latestCreatedList);
+        updateListTitleForm.clear();
+        updateListTitleForm.sendKeys(newTitle);
+        updateListTitleForm.sendKeys(Keys.ENTER);
         return this;
     }
     public BoardPage clickCard(){
@@ -500,5 +504,9 @@ public class BoardPage extends WebElementUtils {
             clickElement(privateBtnAction);
         }
         return this;
+    }
+    public String getFirstListArchived() throws InterruptedException {
+        Thread.sleep(1000);
+        return firstArchivedList.getText();
     }
 }

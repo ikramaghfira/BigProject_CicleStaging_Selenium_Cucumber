@@ -66,16 +66,23 @@
       <artifactId>selenium-api</artifactId>
       <version>4.4.0</version>
     </dependency>
+
+
+    <!-- these dependencies are for mailing purpose -->
+    <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
     <dependency>
-      <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-api</artifactId>
-      <version>4.3.0</version>
+      <groupId>javax.mail</groupId>
+      <artifactId>javax.mail-api</artifactId>
+      <version>1.6.2</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
     <dependency>
-      <groupId>org.testng</groupId>
-      <artifactId>testng</artifactId>
-      <version>7.6.1</version>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>javax.mail</artifactId>
+      <version>1.6.2</version>
     </dependency>
+
+
 
   </dependencies>
 

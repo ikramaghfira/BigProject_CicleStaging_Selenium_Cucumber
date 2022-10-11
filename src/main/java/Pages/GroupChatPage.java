@@ -94,7 +94,7 @@ public class GroupChatPage extends WebElementUtils {
         return this;
     }
     public GroupChatPage verifyTimeStampLatestMessage(String timeStamp) throws InterruptedException {
-        Thread.sleep(2500);
+        Thread.sleep(4000);
         waitVisibilityElement(latestMessageTime);
         String actualTime = readText(latestMessageTime);
         Assert.assertTrue(actualTime.contains(timeStamp));

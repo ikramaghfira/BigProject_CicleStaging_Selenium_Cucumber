@@ -30,7 +30,7 @@ public class GroupChatFeatures {
             " Kriteria sekumpulan kalimat yang dapat menjadi paragraf yaitu adanya kesatuan, kepaduan, ketuntasan, " +
             "keruntutan, dan sudut pandang yang tidak berubah-ubah.[5]";
     String memberToMention = "widiya";
-    String latestOtherSender = "risya";
+    String latestOtherSender = "feny";
     String chatDate = "today";
 
     /**

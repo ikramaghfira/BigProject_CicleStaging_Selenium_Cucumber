@@ -11,10 +11,8 @@ public class BoardFeatures {
     private BoardPage boardPage = new BoardPage(driver);
 
     private final String list1 = "Coba List";
-    private final String list2 = "Big Project";
     private final String firstListArchived = "test";
     private final String newlist1 = "Coba List ke 1";
-    private final String newlist2 = "Coba List ke " + (int)(Math.random()*Integer.MAX_VALUE);
     private final String card1 = "Fitur A";
 
     @Given("user is on the TEAMS PAGE")
@@ -65,17 +63,17 @@ public class BoardFeatures {
     }
     @When("user click Archived Items to restore a list")
     public void userClickArchivedItemsToRestoreAList() throws Throwable{
-        boardPage.clickArchivedItem("Switch to List").clickRestoreButton();
+        boardPage.clickArchivedItem("Switch to List").clickRestoreButton(boardPage.getFirstListArchived());
     }
     @And("the restored list should be on Board Page")
     public void theRestoredListShouldBeOnBoardPage() throws Throwable{
-        boardPage.verifyListIsCreated(list2).clickNavMenu("Archive List");
+        boardPage.verifyListIsCreated(boardPage.getFirstListArchived()).clickNavMenu("Archive List");
         Thread.sleep(1000);
     }
     @When("user click navigation button to select Set as a Complete List menu")
     public void userClickNavigationButtonToSelectSetAsACompleteListMenu() throws Throwable{
         boardPage.clickArchivedItem("Switch to List").searchItemToBeRestored(firstListArchived)
-                .clickRestoreButton();
+                .clickRestoreButton("test");
         Thread.sleep(7000);
         boardPage.clickNavMenu("Set as Complete List");
     }
@@ -87,7 +85,7 @@ public class BoardFeatures {
     @When("user click navigation button to select Unset Complete List menu")
     public void userClickNavigationButtonToSelectUnsetCompleteListMenu() throws Throwable {
         boardPage.clickArchivedItem("Switch to List").searchItemToBeRestored(firstListArchived)
-                .clickRestoreButton();
+                .clickRestoreButton("test");
         Thread.sleep(7000);
         boardPage.clickNavMenu("Set as Complete List");
     }
@@ -108,8 +106,8 @@ public class BoardFeatures {
     }
     @When("user click Add Card button to create card with certain title")
     public void userClickAddCardButtonToCreateCardWithCertainTitle() throws Throwable {
-        boardPage.clickArchivedItem("Switch to List").searchItemToBeRestored(list2)
-                .clickRestoreButton();
+        boardPage.clickArchivedItem("Switch to List").searchItemToBeRestored(boardPage.getFirstListArchived())
+                .clickRestoreButton("");
         Thread.sleep(7000);
         boardPage.createCard(card1, "not private");
     }
@@ -120,8 +118,8 @@ public class BoardFeatures {
     }
     @When("user click Add Card button to create private card")
     public void userClickAddCardButtonToCreatePrivateCard() throws Throwable{
-        boardPage.clickArchivedItem("Switch to List").searchItemToBeRestored(list2)
-                .clickRestoreButton().closeArchivedItemsMenu();
+        boardPage.clickArchivedItem("Switch to List").searchItemToBeRestored(boardPage.getFirstListArchived())
+                .clickRestoreButton("").closeArchivedItemsMenu();
         Thread.sleep(7000);
         boardPage.createCard(card1,"private");
     }
@@ -134,25 +132,24 @@ public class BoardFeatures {
     }
     @When("user click List title to update its title")
     public void userClickListTitleToUpdateItsTitle() throws Throwable {
-        boardPage.clickArchivedItem("Switch to List").searchItemToBeRestored(newlist1)
-                .clickRestoreButton().closeArchivedItemsMenu();
+        boardPage.clickArchivedItem("Switch to List").searchItemToBeRestored(list1)
+                .clickRestoreButton("").closeArchivedItemsMenu();
         Thread.sleep(7000);
-        boardPage.updateListTitle(newlist1, newlist2);
+        boardPage.updateListTitle(newlist1);
     }
     @And("the List title should be updated")
     public void theListTitleShouldBeUpdated() throws Throwable{
-        boardPage.verifyCardIsCreated(newlist2).clickNavMenu("Archive List");
+        boardPage.verifyListIsCreated(newlist1).updateListTitle(list1).clickNavMenu("Archive List");
         Thread.sleep(1000);
     }
     @When("user search a list to be restored")
     public void userSearchAListToBeRestored() throws Throwable {
-        boardPage.clickArchivedItem("Switch to List").searchItemToBeRestored(firstListArchived)
-                .clickRestoreButton();
+        boardPage.clickArchivedItem("Switch to List").clickRestoreButton("test");
     }
     @When("user create a card without title")
     public void userCreateACardWithoutTitle() throws Throwable{
-        boardPage.clickArchivedItem("Switch to List").searchItemToBeRestored(list2)
-                .clickRestoreButton().closeArchivedItemsMenu();
+        boardPage.clickArchivedItem("Switch to List").searchItemToBeRestored(boardPage.getFirstListArchived())
+                .clickRestoreButton("").closeArchivedItemsMenu();
         Thread.sleep(7000);
         boardPage.createCard("","not private");
     }
@@ -164,7 +161,7 @@ public class BoardFeatures {
     @When("user archives all cards through Archive All Cards in This List")
     public void userArchivesAllCardsThroughArchiveAllCardsInThisList() throws Throwable{
         boardPage.clickArchivedItem("Switch to List").searchItemToBeRestored(firstListArchived)
-                .clickRestoreButton().closeArchivedItemsMenu();
+                .clickRestoreButton("test").closeArchivedItemsMenu();
         Thread.sleep(7000);
         boardPage.clickNavMenu("Archive All Cards");
     }
@@ -176,7 +173,7 @@ public class BoardFeatures {
     @When("^user sort all cards through list navigation (.*)$")
     public void userSortAllCardsThroughListNavigationMenu(String menu) throws Throwable{
         boardPage.clickArchivedItem("Switch to List").searchItemToBeRestored(firstListArchived)
-                .clickRestoreButton().closeArchivedItemsMenu();
+                .clickRestoreButton("test").closeArchivedItemsMenu();
         Thread.sleep(7000);
         boardPage.clickNavMenu(menu);
     }
@@ -192,7 +189,7 @@ public class BoardFeatures {
                 .goToBoardPageThroughIconButton()
                 .verifyIsOnBoardPage();
         boardPage.clickArchivedItem("Switch to List").searchItemToBeRestored(firstListArchived)
-                .clickRestoreButton().closeArchivedItemsMenu();
+                .clickRestoreButton("test").closeArchivedItemsMenu();
         Thread.sleep(2000);
         boardPage.clickCard();
         Thread.sleep(5000);
@@ -239,5 +236,10 @@ public class BoardFeatures {
     @When("^user proceed to (.*) the card$")
     public void userProceedToFunctionTheCard(String text) throws Throwable{
         boardPage.clickPrivateButton(text);
+    }
+    @And("the restored list should be on Board Page: {string}")
+    public void theRestoredListShouldBeOnBoardPage(String text) throws Throwable{
+        boardPage.verifyListIsCreated(text).clickNavMenu("Archive List");
+        Thread.sleep(1000);
     }
 }

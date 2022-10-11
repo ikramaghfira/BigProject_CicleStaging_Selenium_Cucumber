@@ -52,7 +52,7 @@
         Given user is on the BOARD PAGE
         When user search a list to be restored
         Then the success alert is appeared: "Unarchiving list with cards is success"
-        And the restored list should be on Board Page
+        And the restored list should be on Board Page: "test"
 
       @positive @Board_TC008
       Scenario: user can set a list as complete by Set as a Complete List menu
