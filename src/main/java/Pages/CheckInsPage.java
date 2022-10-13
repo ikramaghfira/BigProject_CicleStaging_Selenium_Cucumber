@@ -166,10 +166,6 @@ public class CheckInsPage extends WebElementUtils {
         return this;
     }
     public  CheckInsPage verifyMemberIconOnCreatedQuery(){
-        List<WebElement> listMemberIcon= wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy
-                (By.xpath("//div[@class='Question_contentSection__2XBmI']//img")));
-        int size = listMemberIcon.size();
-        Assert.assertTrue(createdQueryInfo.getText().contains(Integer.toString(size)));
         Assert.assertTrue(firaIcon.isDisplayed());
         Assert.assertTrue(fenyIcon.isDisplayed());
         return this;

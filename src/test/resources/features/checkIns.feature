@@ -159,7 +159,7 @@
         When user select members name to be notified
         And user create question through Start collecting answers button
         Then user should see success alert: "Create question successful"
-        And member's icon should be shown on the created question
+        And member's iconshould be shown on the created question
 
       @positive @CI_TC024
       Scenario: user can set the created question on private mode

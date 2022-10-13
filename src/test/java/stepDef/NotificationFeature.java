@@ -23,7 +23,7 @@ public class NotificationFeature {
     }
 
     @When("user go to Notification page")
-    public void userGoToNotificationPage() {
+    public void userGoToNotificationPage() throws Throwable {
         notif.goToNotificationPage();
     }
 
@@ -33,7 +33,7 @@ public class NotificationFeature {
     }
 
     @Given("user is on the Notification Page")
-    public void userIsOnTheNotificationPage() {
+    public void userIsOnTheNotificationPage() throws Throwable{
         homepage.goToSekolahQAHomepage().verifyHeaderHomepage();
         notif.goToNotificationPage();
         notif.verifyOnNotificationPage();

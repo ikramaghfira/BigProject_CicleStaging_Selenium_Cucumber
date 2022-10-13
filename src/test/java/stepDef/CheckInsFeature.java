@@ -163,7 +163,8 @@ public class CheckInsFeature {
                 .verifyQuestionIsArchived();
     }
     @When("user set the hour part of the timer")
-    public void userSetTheHourPartOfTheTimer() {
+    public void userSetTheHourPartOfTheTimer() throws Throwable{
+        Thread.sleep(2000);
         checkInsPage
                 .clickClockIcon().setHour(hour);
     }
@@ -262,6 +263,7 @@ public class CheckInsFeature {
     }
     @And("user remove the member from Member list")
     public void userRemoveTheMemberFromMemberList() throws Throwable{
+        Thread.sleep(2000);
         checkInsPage
                 .clickAddMember();
         Thread.sleep(1000);
@@ -270,7 +272,8 @@ public class CheckInsFeature {
                 .selectMember(memberName2).clickDoneAddMember();
     }
     @And("user remove all members at once")
-    public void userRemoveAllMembersAtOnce() {
+    public void userRemoveAllMembersAtOnce() throws Throwable {
+        Thread.sleep(2000);
         checkInsPage
                 .clickAddMember().clickSelectAllCheckBox().clickDoneAddMember();
     }

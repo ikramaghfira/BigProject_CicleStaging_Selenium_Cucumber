@@ -108,7 +108,7 @@
         Examples:
         |file| fileName |
         |document |document.zip  |
-        |image    |image.png     |
+        |image    |image.jpeg     |
         |video    |video.mp4     |
 
       @positive @GC_TC015

@@ -10,9 +10,9 @@ public class BoardFeatures {
     private TeamsPage teamsPage = new TeamsPage(driver);
     private BoardPage boardPage = new BoardPage(driver);
 
-    private final String list1 = "Coba List";
+    private final String list1 = "coba list";
     private final String firstListArchived = "test";
-    private final String newlist1 = "Coba List ke 1";
+    private final String newlist1 = "coba list ke 1";
     private final String card1 = "Fitur A";
 
     @Given("user is on the TEAMS PAGE")
@@ -67,7 +67,7 @@ public class BoardFeatures {
     }
     @And("the restored list should be on Board Page")
     public void theRestoredListShouldBeOnBoardPage() throws Throwable{
-        boardPage.verifyListIsCreated(boardPage.getFirstListArchived()).clickNavMenu("Archive List");
+        boardPage.verifyListIsCreated(boardPage.getListOnBoard()).clickNavMenu("Archive List");
         Thread.sleep(1000);
     }
     @When("user click navigation button to select Set as a Complete List menu")

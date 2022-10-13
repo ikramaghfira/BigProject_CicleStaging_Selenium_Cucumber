@@ -24,9 +24,9 @@ public class Notification extends WebElementUtils {
     private WebElement viewAllNotifBtn;
     @FindBy(css = ".CategoryTabNotif_tab__3dbuT.CategoryTabNotif_unselected__1Ixlu")
     private WebElement qaNotifBtn;
-    @FindBy(xpath = "(//p[normalize-space()='Group Chat : QA-14-BP-C'])[1]")
+    @FindBy(xpath = "(//*[name()='path' and contains(@d,'M21 6h-2v9')])[1]")
     private WebElement groupChatNotif;
-    @FindBy(xpath = "(//*[normalize-space()='Fira - QA-14-BP-C'])[1]")
+    @FindBy(xpath = "(//*[name()='path' and contains(@d,'M19 3h-4.1')])[1]")
     private WebElement boardNotif;
 
     //NON INTERACTIVE ELEMENT
@@ -64,9 +64,10 @@ public class Notification extends WebElementUtils {
         clickElement(cheersBtn);
         return this;
     }
-    public Notification goToNotificationPage(){
+    public Notification goToNotificationPage() throws InterruptedException {
         clickElement(notifBtn);
         waitToBeClickable(viewAllNotifBtn);
+        Thread.sleep(2000);
         clickElement(viewAllNotifBtn);
         return this;
     }

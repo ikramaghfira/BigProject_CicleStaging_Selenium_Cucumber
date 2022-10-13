@@ -30,7 +30,6 @@ public class GroupChatFeatures {
             " Kriteria sekumpulan kalimat yang dapat menjadi paragraf yaitu adanya kesatuan, kepaduan, ketuntasan, " +
             "keruntutan, dan sudut pandang yang tidak berubah-ubah.[5]";
     String memberToMention = "widiya";
-    String latestOtherSender = "feny";
     String chatDate = "today";
 
     /**
@@ -73,6 +72,7 @@ public class GroupChatFeatures {
     }
     @Then("user should see the time description on the bubble chat: {string}")
     public void userShouldSeeTheTimeDescriptionOnTheBubbleChat(String timeDesc) throws Throwable {
+        Thread.sleep(2000);
         groupChatPage
                 .verifyTimeStampLatestMessage(timeDesc);
     }
@@ -152,7 +152,7 @@ public class GroupChatFeatures {
                 .cancelDeleteMessage();
     }
     @When("user see other sender message")
-    public void userSeeOtherSenderMessage() {
+    public void userSeeOtherSenderMessage() throws Throwable{
         groupChatPage
                 .scrollToLatestOtherSender();
     }
@@ -160,7 +160,7 @@ public class GroupChatFeatures {
     public void userShouldBeShownSenderNameAndIcon() throws Throwable{
         Thread.sleep(1500);
         groupChatPage
-                .verifyOtherSenderIconAndName(latestOtherSender);
+                .verifyOtherSenderIconAndName();
     }
     @When("user want to see when the message is sent")
     public void userWantToSeeWhenTheMessageIsSent() throws Throwable {
@@ -186,7 +186,7 @@ public class GroupChatFeatures {
                 .verifySuccessAlert("Delete group chat attachment success");
     }
     @When("user download the file attached on the group chat: {string}")
-    public void userDownloadTheFileAttachedOnTheGroupChat(String file) {
+    public void userDownloadTheFileAttachedOnTheGroupChat(String file) throws Throwable{
         groupChatPage
                 .uploadFile(file).downloadFileUploaded();
     }

@@ -132,9 +132,9 @@ public class GroupChatPage extends WebElementUtils {
         Assert.assertTrue(textFieldInput.getText().contains(message));
         return this;
     }
-    public GroupChatPage verifyOtherSenderIconAndName(String name){
+    public GroupChatPage verifyOtherSenderIconAndName(){
         Assert.assertTrue(latestSenderIcon.isDisplayed());
-        Assert.assertTrue(latestSenderName.getText().toLowerCase().contains(name));
+        Assert.assertTrue(latestSenderName.getText().toLowerCase().contains(getLatestSenderName()));
         return this;
     }
     public GroupChatPage verifyDateSeparator(String date){
@@ -165,6 +165,10 @@ public class GroupChatPage extends WebElementUtils {
     /**
      * INTERACTION FUNCTIONS
      */
+    public String getLatestSenderName(){
+        String name = latestSenderName.getText().toLowerCase();
+        return name;
+    }
     public GroupChatPage typeAMessage(String message){
         waitVisibilityElement(textFieldInput);
         clickElement(textFieldInput);
@@ -225,7 +229,9 @@ public class GroupChatPage extends WebElementUtils {
         clickElement(closeIconDelete);
         return this;
     }
-    public GroupChatPage scrollToLatestOtherSender(){
+    public GroupChatPage scrollToLatestOtherSender() throws InterruptedException {
+        scrollToLatestDate();
+        Thread.sleep(2000);
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", latestSenderIcon);
         return this;
     }
@@ -244,7 +250,7 @@ public class GroupChatPage extends WebElementUtils {
                     "F:\\K. Belajar JAVA\\4. Tugas\\BigProject\\src\\main\\java\\testData\\document.zip");
         } else if (text.equalsIgnoreCase("image")) {
             writeText(inputFileExternal,
-                    "F:\\K. Belajar JAVA\\4. Tugas\\BigProject\\src\\main\\java\\testData\\image.png");
+                    "F:\\K. Belajar JAVA\\4. Tugas\\BigProject\\src\\main\\java\\testData\\image.jpeg");
         } else if (text.equalsIgnoreCase("video")) {
             writeText(inputFileExternal,
                     "F:\\K. Belajar JAVA\\4. Tugas\\BigProject\\src\\main\\java\\testData\\video.mp4");
@@ -263,7 +269,8 @@ public class GroupChatPage extends WebElementUtils {
         Thread.sleep(3000);
         return this;
     }
-    public GroupChatPage downloadFileUploaded(){
+    public GroupChatPage downloadFileUploaded() throws InterruptedException {
+        Thread.sleep(2500);
         clickElement(downloadButton);
         return this;
     }

@@ -183,7 +183,7 @@ public class BoardPage extends WebElementUtils {
     }
     public BoardPage verifyListIsCreated(String title) throws InterruptedException {
         Thread.sleep(2000);
-        Assert.assertTrue(latestCreatedList.getText().contains(title));
+        Assert.assertEquals(latestCreatedList.getText().toLowerCase(), title);
         return this;
     }
     public BoardPage verifyListIsMovedToArchive(String text) throws InterruptedException {
@@ -316,9 +316,10 @@ public class BoardPage extends WebElementUtils {
         return this;
     }
     public BoardPage clickRestoreButton(String text) throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         if(text.equals("test")){
             JavascriptExecutor js = (JavascriptExecutor) driver;
+            waitToBeClickable(testListRestoreBtn);
             js.executeScript("arguments[0].scrollIntoView(true);", testListRestoreBtn);
             Thread.sleep(2000);
             clickElement(testListRestoreBtn);
@@ -498,7 +499,8 @@ public class BoardPage extends WebElementUtils {
     public BoardPage clickPrivateButton(String function) throws InterruptedException {
         if(function.equalsIgnoreCase("private")){
             clickElement(privateBtnAction);
-            Thread.sleep(1000);
+            Thread.sleep(2000);
+            waitVisibilityElement(privateIconOnLayer);
             Assert.assertTrue(privateIconOnLayer.isDisplayed());
         } else if (function.equalsIgnoreCase("public")){
             clickElement(privateBtnAction);
@@ -507,6 +509,9 @@ public class BoardPage extends WebElementUtils {
     }
     public String getFirstListArchived() throws InterruptedException {
         Thread.sleep(1000);
-        return firstArchivedList.getText();
+        return firstArchivedList.getText().toLowerCase();
+    }
+    public String getListOnBoard(){
+        return latestCreatedList.getText().toLowerCase();
     }
 }
