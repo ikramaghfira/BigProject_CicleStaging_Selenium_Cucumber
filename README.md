@@ -35,7 +35,6 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 public class SendReportUtils {
-
     public static void main() {
 
         System.out.println("preparing to send message ...");
